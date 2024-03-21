@@ -74,4 +74,4 @@ class Notification:
         # payload = { "content": message }
         # requests.post(webhook_url, json=payload)
         # bot.send_message(chatid,text,parse_mode="html")
-        bot.send_message(webhook_url,message)
+        bot.send_message("1234",message)

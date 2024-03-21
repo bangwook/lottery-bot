@@ -74,4 +74,7 @@ class Notification:
         # payload = { "content": message }
         # requests.post(webhook_url, json=payload)
         # bot.send_message(chatid,text,parse_mode="html")
+
+        print("Hello World")
+        print("telegram_chat_id : " + telegram_chat_id)
         bot.send_message(telegram_chat_id, message)

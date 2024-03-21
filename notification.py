@@ -2,8 +2,8 @@ import requests
 import telebot
 import os
 botToken = os.environ.get("TELEGRAM_BOT_TOKEN_FOR_LOTTERY")
+telegram_chat_id = os.environ.get("TELEGRAM_BOT_CHAT_ID") 
 bot = telebot.TeleBot(botToken)
-
 
 class Notification: 
 
@@ -74,4 +74,4 @@ class Notification:
         # payload = { "content": message }
         # requests.post(webhook_url, json=payload)
         # bot.send_message(chatid,text,parse_mode="html")
-        bot.send_message("1234",message)
+        bot.send_message(telegram_chat_id, message)

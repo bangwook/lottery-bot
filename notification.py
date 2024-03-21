@@ -56,6 +56,7 @@ class Notification:
             message = f"로또 *{winning['round']}회* - *{winning['money']}* 당첨 되었습니다 🎉"
             self._send_discord_webhook(webhook_url, message)
         except KeyError:
+            self._send_discord_webhook(webhook_url, "Error : send_lotto_winning_message")
             return
 
     def send_win720_winning_message(self, winning: dict, webhook_url: str) -> None: 
@@ -68,6 +69,7 @@ class Notification:
             message = f"연금복권 *{winning['round']}회* - *{winning['money']}* 당첨 되었습니다 🎉"
             self._send_discord_webhook(webhook_url, message)
         except KeyError:
+            self._send_discord_webhook(webhook_url, "Error : send_win720_winning_message")
             return
 
     def _send_discord_webhook(self, webhook_url: str, message: str) -> None:

@@ -8,7 +8,7 @@ bot = telebot.TeleBot(botToken)
 class Notification: 
 
     def send_lotto_buying_message(self, body: dict, webhook_url: str) -> None:
-        assert type(webhook_url) == str
+        # assert type(webhook_url) == str
 
         result = body.get("result", {})
         if result.get("resultMsg", "FAILURE").upper() != "SUCCESS":  
@@ -33,7 +33,7 @@ class Notification:
         return lotto_number
 
     def send_win720_buying_message(self, body: dict, webhook_url: str) -> None:
-        assert type(webhook_url) == str
+        # assert type(webhook_url) == str
         
         if body.get("resultCode") != '100':  
             return       
@@ -48,7 +48,7 @@ class Notification:
 
     def send_lotto_winning_message(self, winning: dict, webhook_url: str) -> None: 
         assert type(winning) == dict
-        assert type(webhook_url) == str
+        # assert type(webhook_url) == str
 
         try: 
             round = winning["round"]
@@ -60,7 +60,7 @@ class Notification:
 
     def send_win720_winning_message(self, winning: dict, webhook_url: str) -> None: 
         assert type(winning) == dict
-        assert type(webhook_url) == str
+        # assert type(webhook_url) == str
 
         try: 
             round = winning["round"]

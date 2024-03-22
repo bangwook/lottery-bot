@@ -48,6 +48,9 @@ class Win720:
     ) -> dict:
         assert type(auth_ctrl) == auth.AuthController
 
+        notify = notification.Notification()
+
+        
         headers = self._generate_req_headers(auth_ctrl)
 
         print(f"headers : {headers}")
@@ -61,23 +64,23 @@ class Win720:
 
         print(f"win720_round : {win720_round}")
 
-        self._send_discord_webhook(webhook_url="", "win720_round : " + win720_round )
+        notify._send_discord_webhook(webhook_url="", "win720_round : " + win720_round )
 
         
         makeAutoNum_ret = self._makeAutoNumbers(auth_ctrl, win720_round)
 
         print(f"makeAutoNum_ret : {makeAutoNum_ret}")
-        self._send_discord_webhook(webhook_url="", "makeAutoNum_ret : " + makeAutoNum_ret )
+        notify._send_discord_webhook(webhook_url="", "makeAutoNum_ret : " + makeAutoNum_ret )
         
         parsed_ret = self._decText(json.loads(makeAutoNum_ret)['q']) 
 
         print(f"parsed_ret : {parsed_ret}")
-        self._send_discord_webhook(webhook_url="", "parsed_ret : " + parsed_ret )
+        notify._send_discord_webhook(webhook_url="", "parsed_ret : " + parsed_ret )
         
         extracted_num = json.loads(parsed_ret)["selLotNo"]
 
         print(f"extracted_num : {extracted_num}")
-        self._send_discord_webhook(webhook_url="", "extracted_num : " + extracted_num )
+        notify._send_discord_webhook(webhook_url="", "extracted_num : " + extracted_num )
         
         orderNo, orderDate = self._doOrderRequest(auth_ctrl, win720_round, extracted_num)
         

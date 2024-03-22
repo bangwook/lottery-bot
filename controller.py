@@ -115,7 +115,7 @@ def run():
 
     if sys.argv[1] == "buy":
         buy()
-    elif sys.argv[1] == "buy_win720_only":
+    elif sys.argv[1] == "win720":
         buy_win720_only()
     elif sys.argv[1] == "check":
         check()

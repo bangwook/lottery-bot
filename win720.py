@@ -60,18 +60,23 @@ class Win720:
         win720_round = self._get_round()
 
         print(f"win720_round : {win720_round}")
+        self._send_discord_webhook(webhook_url, f"win720_round : {win720_round}" )
+
         
         makeAutoNum_ret = self._makeAutoNumbers(auth_ctrl, win720_round)
 
         print(f"makeAutoNum_ret : {makeAutoNum_ret}")
+        self._send_discord_webhook(webhook_url, f"makeAutoNum_ret : {makeAutoNum_ret}" )
         
         parsed_ret = self._decText(json.loads(makeAutoNum_ret)['q']) 
 
         print(f"parsed_ret : {parsed_ret}")
+        self._send_discord_webhook(webhook_url, f"parsed_ret : {parsed_ret}" )
         
         extracted_num = json.loads(parsed_ret)["selLotNo"]
 
         print(f"extracted_num : {extracted_num}")
+        self._send_discord_webhook(webhook_url, f"extracted_num : {extracted_num}" )
         
         orderNo, orderDate = self._doOrderRequest(auth_ctrl, win720_round, extracted_num)
         

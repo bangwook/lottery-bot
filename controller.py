@@ -110,6 +110,9 @@ def run():
         print("Usage: python controller.py [buy|check|buy_win720_only]")
         return
 
+    print("Run ======")
+    print(prinsys.argv[1])
+
     if sys.argv[1] == "buy":
         buy()
     elif sys.argv[1] == "buy_win720_only":

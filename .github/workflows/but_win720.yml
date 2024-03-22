@@ -1,0 +1,29 @@
+name: Buy win720
+on:
+  schedule:
+    - cron: 0 1 * * 5 # every Saturday on 10:00 AM (KST)
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    name: Buy win720
+    steps:  
+
+      - uses: actions/checkout@v3    
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r requirements.txt
+      
+      - name: Run Scripts
+        run: make buy_win720_only
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          COUNT: ${{ secrets.COUNT }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL:  ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN_FOR_LOTTERY: ${{ secrets.TELEGRAM_BOT_TOKEN_FOR_LOTTERY }}
+          TELEGRAM_BOT_CHAT_ID: ${{ secrets.TELEGRAM_BOT_CHAT_ID }}

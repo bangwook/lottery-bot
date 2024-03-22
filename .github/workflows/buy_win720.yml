@@ -18,7 +18,7 @@ jobs:
       - run: pip install -r requirements.txt
       
       - name: Run Scripts
-        run: make buy_win720_only
+        run: make win720
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}

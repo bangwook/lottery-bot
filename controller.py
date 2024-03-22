@@ -52,6 +52,8 @@ def check():
     password = os.environ.get('PASSWORD')
     slack_webhook_url = os.environ.get('SLACK_WEBHOOK_URL') 
     discord_webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+    telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN_FOR_LOTTERY')
+    telegram_bot_chat_id = os.environ.get('TELEGRAM_BOT_CHAT_ID')
 
     globalAuthCtrl = auth.AuthController()
     globalAuthCtrl.login(username, password)
@@ -70,6 +72,9 @@ def buy():
     count = int(os.environ.get('COUNT'))
     slack_webhook_url = os.environ.get('SLACK_WEBHOOK_URL') 
     discord_webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+    telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN_FOR_LOTTERY')
+    telegram_bot_chat_id = os.environ.get('TELEGRAM_BOT_CHAT_ID')
+    
     mode = "AUTO"
 
     globalAuthCtrl = auth.AuthController()

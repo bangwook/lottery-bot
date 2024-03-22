@@ -12,6 +12,7 @@ class Notification:
 
         result = body.get("result", {})
         if result.get("resultMsg", "FAILURE").upper() != "SUCCESS":  
+            self._send_discord_webhook(webhook_url, "Error lotto_buying_message")    
             return
 
         lotto_number_str = self.make_lotto_number_message(result["arrGameChoiceNum"])
@@ -35,13 +36,15 @@ class Notification:
     def send_win720_buying_message(self, body: dict, webhook_url: str) -> None:
         # assert type(webhook_url) == str
         
-        if body.get("resultCode") != '100':  
+        if body.get("resultCode") != '100':              
+            self._send_discord_webhook(webhook_url, "Error win720_buying_message")    
             return       
 
         win720_round = body.get("resultMsg").split("|")[3]
 
         win720_number_str = self.make_win720_number_message(body.get("saleTicket"))
         message = f"{win720_round}회 연금복권 구매 완료 💰남은잔액 {body['balance']}\n```{win720_number_str}```"
+        self._send_discord_webhook(webhook_url, message)
 
     def make_win720_number_message(self, win720_number: str) -> str:
         return "\n".join(win720_number.split(","))

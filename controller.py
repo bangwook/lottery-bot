@@ -107,7 +107,7 @@ def buy_win720_only():
     
 def run():
     if len(sys.argv) < 2:
-        print("Usage: python controller.py [buy|check]")
+        print("Usage: python controller.py [buy|check|buy_win720_only]")
         return
 
     if sys.argv[1] == "buy":

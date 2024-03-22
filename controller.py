@@ -86,6 +86,25 @@ def buy():
     response = buy_win720(globalAuthCtrl) 
     send_message(1, 1, response=response, webhook_url=discord_webhook_url)
 
+def buy_win720_only():
+    load_dotenv() 
+
+    username = os.environ.get('USERNAME')
+    password = os.environ.get('PASSWORD')
+    count = int(os.environ.get('COUNT'))
+    slack_webhook_url = os.environ.get('SLACK_WEBHOOK_URL') 
+    discord_webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+    telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN_FOR_LOTTERY')
+    telegram_bot_chat_id = os.environ.get('TELEGRAM_BOT_CHAT_ID')
+    
+    mode = "AUTO"
+
+    globalAuthCtrl = auth.AuthController()
+    globalAuthCtrl.login(username, password)
+
+    response = buy_win720(globalAuthCtrl) 
+    send_message(1, 1, response=response, webhook_url=discord_webhook_url)
+    
 def run():
     if len(sys.argv) < 2:
         print("Usage: python controller.py [buy|check]")

@@ -7,5 +7,5 @@ buy:
 check:
 	python3 controller.py check
 
-buy_win720:
+buy_win720_only:
 	python3 controller.py buy_win720_only

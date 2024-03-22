@@ -60,6 +60,8 @@ class Win720:
         win720_round = self._get_round()
 
         print(f"win720_round : {win720_round}")
+
+        webhook_url = null
         self._send_discord_webhook(webhook_url, f"win720_round : {win720_round}" )
 
         

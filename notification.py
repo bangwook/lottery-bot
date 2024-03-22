@@ -37,7 +37,7 @@ class Notification:
         # assert type(webhook_url) == str
         
         if body.get("resultCode") != '100':              
-            self._send_discord_webhook(webhook_url, "Error win720_buying_message")    
+            self._send_discord_webhook(webhook_url, "Error win720_buying_message - " + body.get("resultMsg"))    
             return       
 
         win720_round = body.get("resultMsg").split("|")[3]

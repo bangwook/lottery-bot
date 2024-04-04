@@ -1,13 +1,14 @@
 import json
 import datetime
 import requests
-import notification
+
 
 from enum import Enum
 from bs4 import BeautifulSoup as BS
 from datetime import timedelta
 
 import auth
+import notification
 
 class Lotto645Mode(Enum):
     AUTO = 1
@@ -44,7 +45,6 @@ class Lotto645:
         assert type(cnt) == int and 1 <= cnt <= 5
         assert type(mode) == Lotto645Mode
 
-	notify = notification.Notification()
         headers = self._generate_req_headers(auth_ctrl)
         requirements = self._getRequirements(headers)
 
@@ -119,7 +119,8 @@ class Lotto645:
         soup = BS(
             html, "html5lib"
         )
-	    
+
+	notify = notification.Notification()
 	notify._send_discord_webhook("", "soup : " + soup )
         draw_date = soup.find("input", id="ROUND_DRAW_DATE").get('value')
         tlmt_date = soup.find("input", id="WAMT_PAY_TLMT_END_DT").get('value')

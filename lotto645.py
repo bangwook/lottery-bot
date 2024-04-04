@@ -118,7 +118,7 @@ class Lotto645:
             headers=org_headers
         )
         
-	    html = res.text
+        html = res.text
         soup = BS(
             html, "html5lib"
         )

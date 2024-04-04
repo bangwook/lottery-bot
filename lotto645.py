@@ -48,12 +48,12 @@ class Lotto645:
         headers = self._generate_req_headers(auth_ctrl)
         requirements = self._getRequirements(headers)
 
-        data = (
+        
             if mode == Lotto645Mode.AUTO:
-	        self._generate_body_for_auto_mode(cnt, requirements)
+	        data = self._generate_body_for_auto_mode(cnt, requirements)
             else:
-	        self._generate_body_for_manual(cnt)
-        )
+	        data = self._generate_body_for_manual(cnt)
+        
 
         body = self._try_buying(headers, data)
 

@@ -121,7 +121,7 @@ class Lotto645:
             html, "html5lib"
         )
         notify = notification.Notification()
-        notify._send_discord_webhook("", "soup : " + soup )
+        notify._send_discord_webhook("", "html : " + html )
         draw_date = soup.find("input", id="ROUND_DRAW_DATE").get('value')
         tlmt_date = soup.find("input", id="WAMT_PAY_TLMT_END_DT").get('value')
 

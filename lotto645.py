@@ -1,6 +1,7 @@
 import json
 import datetime
 import requests
+import notification
 
 from enum import Enum
 from bs4 import BeautifulSoup as BS
@@ -117,6 +118,8 @@ class Lotto645:
         soup = BS(
             html, "html5lib"
         )
+	    
+	notify._send_discord_webhook("", "soup : " + soup )
         draw_date = soup.find("input", id="ROUND_DRAW_DATE").get('value')
         tlmt_date = soup.find("input", id="WAMT_PAY_TLMT_END_DT").get('value')
 

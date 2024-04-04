@@ -34,7 +34,8 @@ class Lotto645:
         "Sec-Fetch-Dest": "document",
         "Accept-Language": "ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7",
     }
-	notify = notification.Notification()
+
+    notify = notification.Notification()
 
     def buy_lotto645(
         self, 

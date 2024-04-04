@@ -44,6 +44,7 @@ class Lotto645:
         assert type(cnt) == int and 1 <= cnt <= 5
         assert type(mode) == Lotto645Mode
 
+	notify = notification.Notification()
         headers = self._generate_req_headers(auth_ctrl)
         requirements = self._getRequirements(headers)
 

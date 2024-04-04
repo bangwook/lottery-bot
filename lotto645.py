@@ -35,8 +35,6 @@ class Lotto645:
         "Accept-Language": "ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7",
     }
 
-    notify = notification.Notification()
-
     def buy_lotto645(
         self, 
         auth_ctrl: auth.AuthController, 
@@ -122,7 +120,7 @@ class Lotto645:
         soup = BS(
             html, "html5lib"
         )
-        
+        notify = notification.Notification()
         notify._send_discord_webhook("", "soup : " + soup )
         draw_date = soup.find("input", id="ROUND_DRAW_DATE").get('value')
         tlmt_date = soup.find("input", id="WAMT_PAY_TLMT_END_DT").get('value')

@@ -49,9 +49,10 @@ class Lotto645:
         requirements = self._getRequirements(headers)
 
         data = (
-            if mode == Lotto645Mode.AUTO
+            if mode == Lotto645Mode.AUTO:
 	        self._generate_body_for_auto_mode(cnt, requirements)
-            else self._generate_body_for_manual(cnt)
+            else:
+	        self._generate_body_for_manual(cnt)
         )
 
         body = self._try_buying(headers, data)

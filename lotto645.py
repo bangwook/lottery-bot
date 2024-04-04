@@ -34,6 +34,7 @@ class Lotto645:
         "Sec-Fetch-Dest": "document",
         "Accept-Language": "ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7",
     }
+	notify = notification.Notification()
 
     def buy_lotto645(
         self, 
@@ -102,7 +103,7 @@ class Lotto645:
         headers["Content-Type"] = "application/json; charset=UTF-8"
         headers["X-Requested-With"] ="XMLHttpRequest"
 
-		#no param needed at now
+	#no param needed at now
         res = requests.post( 
             url="https://ol.dhlottery.co.kr/olotto/game/egovUserReadySocket.json", 
             headers=headers
@@ -115,13 +116,13 @@ class Lotto645:
             url="https://ol.dhlottery.co.kr/olotto/game/game645.do", 
             headers=org_headers
         )
-        html = res.text
+        
+	    html = res.text
         soup = BS(
             html, "html5lib"
         )
-
-	notify = notification.Notification()
-	notify._send_discord_webhook("", "soup : " + soup )
+        
+	    notify._send_discord_webhook("", "soup : " + soup )
         draw_date = soup.find("input", id="ROUND_DRAW_DATE").get('value')
         tlmt_date = soup.find("input", id="WAMT_PAY_TLMT_END_DT").get('value')
 

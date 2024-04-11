@@ -84,6 +84,11 @@ class Win720:
         notify._send_discord_webhook("", "extracted_num : " + extracted_num )
         
         orderNo, orderDate = self._doOrderRequest(auth_ctrl, win720_round, extracted_num)
+
+        print(f"orderNo : {orderNo}")
+        notify._send_discord_webhook("", "orderNo : " + orderNo )
+        print(f"orderDate : {orderDate}")
+        notify._send_discord_webhook("", "orderDate : " + orderDate )
         
         body = json.loads(self._doConnPro(auth_ctrl, win720_round, extracted_num, orderNo, orderDate))
 

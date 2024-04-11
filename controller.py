@@ -20,10 +20,9 @@ def check_winning_lotto645(authCtrl: auth.AuthController) -> dict:
     item = lotto.check_winning(authCtrl)
     return item
 
-def buy_win720(authCtrl: auth.AuthController):
-    username = os.environ.get('USERNAME')
+def buy_win720(authCtrl: auth.AuthController, user_id: str):
     pension = win720.Win720()
-    response = pension.buy_Win720(authCtrl, username)
+    response = pension.buy_Win720(authCtrl, user_id)
     response['balance'] = pension.get_balance(auth_ctrl=authCtrl)
     return response
 

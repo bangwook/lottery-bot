@@ -83,7 +83,7 @@ def buy():
     response = buy_lotto645(globalAuthCtrl, count, mode) 
     send_message(1, 0, response=response, webhook_url=discord_webhook_url)
 
-    response = buy_win720(globalAuthCtrl) 
+    response = buy_win720(globalAuthCtrl, username) 
     send_message(1, 1, response=response, webhook_url=discord_webhook_url)
 
 def buy_win720_only():
@@ -102,7 +102,7 @@ def buy_win720_only():
     globalAuthCtrl = auth.AuthController()
     globalAuthCtrl.login(username, password)
 
-    response = buy_win720(globalAuthCtrl) 
+    response = buy_win720(globalAuthCtrl, username) 
     send_message(1, 1, response=response, webhook_url=discord_webhook_url)
     
 def run():

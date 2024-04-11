@@ -46,6 +46,7 @@ class Win720:
     def buy_Win720(
         self, 
         auth_ctrl: auth.AuthController, 
+        user_id: str
     ) -> dict:
         assert type(auth_ctrl) == auth.AuthController
 
@@ -90,7 +91,7 @@ class Win720:
         print(f"orderDate : {orderDate}")
         notify._send_discord_webhook("", "orderDate : " + orderDate )
         
-        body = json.loads(self._doConnPro(auth_ctrl, win720_round, extracted_num, orderNo, orderDate))
+        body = json.loads(self._doConnPro(auth_ctrl, user_id, win720_round, extracted_num, orderNo, orderDate))
 
         self._show_result(body)
         return body
@@ -142,8 +143,8 @@ class Win720:
 
         return ret['orderNo'], ret['orderDate']
 
-    def _doConnPro(self, auth_ctrl: auth.AuthController, win720_round: str, extracted_num: str, orderNo: str, orderDate: str) -> str:
-        payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT=5&BUY_SET_TYPE=SA%2CSA%2CSA%2CSA%2CSA&BUY_TYPE=A%2CA%2CA%2CA%2CA%2C&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=5000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on".format(win720_round,"".join([ "{}{}%2C".format(i,extracted_num) for i in range(1,6)])[:-3],orderNo, orderDate, "fantazm", win720_round)
+    def _doConnPro(self, auth_ctrl: auth.AuthController, user_id: str, win720_round: str, extracted_num: str, orderNo: str, orderDate: str) -> str:
+        payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT=5&BUY_SET_TYPE=SA%2CSA%2CSA%2CSA%2CSA&BUY_TYPE=A%2CA%2CA%2CA%2CA%2C&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=5000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on".format(win720_round,"".join([ "{}{}%2C".format(i,extracted_num) for i in range(1,6)])[:-3],orderNo, orderDate, user_id, win720_round)
         headers = self._generate_req_headers(auth_ctrl)
 
         notify = notification.Notification()

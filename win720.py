@@ -149,9 +149,6 @@ class Win720:
         notify = notification.Notification()
         print(f"payload : {payload}")
         notify._send_discord_webhook("", "payload : " + payload )
-
-        print(f"headers : {headers}")
-        notify._send_discord_webhook("", "headers : " + headers )
         
         data = {
             "q": requests.utils.quote(self._encText(payload))

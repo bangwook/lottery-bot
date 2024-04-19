@@ -102,7 +102,7 @@ def buy_win720_only():
     globalAuthCtrl = auth.AuthController()
     globalAuthCtrl.login(username, password)
 
-    response = buy_win720(globalAuthCtrl, username) 
+    response = buy_win720(globalAuthCtrl, username, count) 
     send_message(1, 1, response=response, webhook_url=discord_webhook_url)
     
 def run():

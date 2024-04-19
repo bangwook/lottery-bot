@@ -1,8 +1,8 @@
 name: Buy win720
 on:
-  schedule:
-    - cron: 0 1 * * 5 # every Saturday on 10:00 AM (KST)
-  workflow_dispatch:
+  #schedule:
+   # - cron: 0 1 * * 5 # every Saturday on 10:00 AM (KST)
+  #workflow_dispatch:
 
 jobs:
   build:

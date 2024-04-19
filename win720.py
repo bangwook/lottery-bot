@@ -161,8 +161,7 @@ class Win720:
                    extracted_num: str, 
                    orderNo: str, 
                    orderDate: str) -> str:
-        payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT={}&BUY_SET_TYPE={}&BUY_TYPE={}&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=1000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on"
-        .format(win720_round,
+        payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT={}&BUY_SET_TYPE={}&BUY_TYPE={}&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=1000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on".format(win720_round,
                 "".join([ "{}{}%2C".format(i,extracted_num) for i in range(1,buy_count + 1)])[:-3],
                 buy_count,
                 "".join([ "{}".format(i,"SA%2C") for i in range(1,buy_count + 1)]),

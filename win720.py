@@ -61,7 +61,8 @@ class Win720:
         self.keyCode = headers['Cookie'].split("JSESSIONID=")[1]
 
         print(f"self.keyCode : {self.keyCode}")
-        
+        notify._send_discord_webhook("", "self.keyCode : " + self.keyCode )
+
         win720_round = self._get_round()
 
         print(f"win720_round : {win720_round}")

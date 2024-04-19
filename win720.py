@@ -57,8 +57,7 @@ class Win720:
         
         headers = self._generate_req_headers(auth_ctrl)
 
-        #print(f"headers : {headers}")
-
+        print(f"buy_count : {buy_count}")
 
         self.keyCode = headers['Cookie'].split("JSESSIONID=")[1]
 

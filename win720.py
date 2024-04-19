@@ -47,7 +47,8 @@ class Win720:
     def buy_Win720(
         self, 
         auth_ctrl: auth.AuthController, 
-        user_id: str
+        user_id: str,
+        buy_count: int
     ) -> dict:
         assert type(auth_ctrl) == auth.AuthController
 
@@ -70,7 +71,7 @@ class Win720:
         self.notify._send_discord_webhook("", "win720_round : " + win720_round )
 
         
-        makeAutoNum_ret = self._makeAutoNumbers(auth_ctrl, win720_round)
+        makeAutoNum_ret = self._makeAutoNumbers(auth_ctrl, win720_round, buy_count)
 
         print(f"makeAutoNum_ret : {makeAutoNum_ret}")
         self.notify._send_discord_webhook("", "makeAutoNum_ret : " + makeAutoNum_ret )
@@ -85,14 +86,14 @@ class Win720:
         print(f"extracted_num : {extracted_num}")
         self.notify._send_discord_webhook("", "extracted_num : " + extracted_num )
         
-        orderNo, orderDate = self._doOrderRequest(auth_ctrl, win720_round, extracted_num)
+        orderNo, orderDate = self._doOrderRequest(auth_ctrl, win720_round, buy_count, extracted_num)
 
         print(f"orderNo : {orderNo}")
         self.notify._send_discord_webhook("", "orderNo : " + orderNo )
         print(f"orderDate : {orderDate}")
         self.notify._send_discord_webhook("", "orderDate : " + orderDate )
         
-        body = json.loads(self._doConnPro(auth_ctrl, user_id, win720_round, extracted_num, orderNo, orderDate))
+        body = json.loads(self._doConnPro(auth_ctrl, user_id, win720_round, buy_count, extracted_num, orderNo, orderDate))
 
         self._show_result(body)
         return body
@@ -110,8 +111,12 @@ class Win720:
         last_drawn_round = int(soup.find("strong", id="drwNo720").text)
         return str(last_drawn_round + 1)
 
-    def _makeAutoNumbers(self, auth_ctrl: auth.AuthController, win720_round: str) -> str:
-        payload = "ROUND={}&SEL_NO=&BUY_CNT=1&AUTO_SEL_SET=SA&SEL_CLASS=&BUY_TYPE=A&ACCS_TYPE=01".format(win720_round)
+    def _makeAutoNumbers(self, 
+                         auth_ctrl: auth.AuthController, 
+                         win720_round: str,
+                         buy_count: int
+                        ) -> str:
+        payload = "ROUND={}&SEL_NO=&BUY_CNT={}&AUTO_SEL_SET=SA&SEL_CLASS=&BUY_TYPE=A&ACCS_TYPE=01".format(win720_round, buy_count)
         headers = self._generate_req_headers(auth_ctrl)
         
         data = {
@@ -126,8 +131,12 @@ class Win720:
 
         return res.text
 
-    def _doOrderRequest(self, auth_ctrl: auth.AuthController, win720_round: str, extracted_num: str) -> str:
-        payload = "ROUND={}&AUTO_SEL_SET=SA&SEL_CLASS=&SEL_NO={}&BUY_TYPE=M&BUY_CNT=1".format(win720_round, extracted_num)
+    def _doOrderRequest(self, 
+                        auth_ctrl: auth.AuthController, 
+                        win720_round: str, 
+                        buy_count: int,
+                        extracted_num: str) -> str:
+        payload = "ROUND={}&AUTO_SEL_SET=SA&SEL_CLASS=&SEL_NO={}&BUY_TYPE=M&BUY_CNT={}".format(win720_round, extracted_num, buy_count)
         headers = self._generate_req_headers(auth_ctrl)
 
         data = {
@@ -144,8 +153,24 @@ class Win720:
 
         return ret['orderNo'], ret['orderDate']
 
-    def _doConnPro(self, auth_ctrl: auth.AuthController, user_id: str, win720_round: str, extracted_num: str, orderNo: str, orderDate: str) -> str:
-        payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT=1&BUY_SET_TYPE=SA&BUY_TYPE=A%2C&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=1000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on".format(win720_round,"".join([ "{}{}%2C".format(i,extracted_num) for i in range(1,2)])[:-3],orderNo, orderDate, user_id, win720_round)
+    def _doConnPro(self, 
+                   auth_ctrl: auth.AuthController, 
+                   user_id: str, 
+                   win720_round: str, 
+                   buy_count: int,
+                   extracted_num: str, 
+                   orderNo: str, 
+                   orderDate: str) -> str:
+        payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT={}&BUY_SET_TYPE={}&BUY_TYPE={}&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=1000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on"
+                       .format(win720_round,
+                               "".join([ "{}{}%2C".format(i,extracted_num) for i in range(1,buy_count + 1)])[:-3],
+                               buy_count,
+                               "".join([ "{}".format(i,"SA%2C") for i in range(1,buy_count + 1)]),
+                               "".join([ "{}".format(i,"A%2C") for i in range(1,buy_count + 1)]),
+                               orderNo, 
+                               orderDate, 
+                               user_id, 
+                               win720_round)
         headers = self._generate_req_headers(auth_ctrl)
 
         #notify = notification.Notification()

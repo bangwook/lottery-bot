@@ -125,7 +125,7 @@ class Win720:
         return res.text
 
     def _doOrderRequest(self, auth_ctrl: auth.AuthController, win720_round: str, extracted_num: str) -> str:
-        payload = "ROUND={}&AUTO_SEL_SET=SA&SEL_CLASS=&SEL_NO={}&BUY_TYPE=M&BUY_CNT=5".format(win720_round, extracted_num)
+        payload = "ROUND={}&AUTO_SEL_SET=SA&SEL_CLASS=&SEL_NO={}&BUY_TYPE=M&BUY_CNT=1".format(win720_round, extracted_num)
         headers = self._generate_req_headers(auth_ctrl)
 
         data = {

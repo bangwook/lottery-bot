@@ -109,7 +109,7 @@ class Win720:
         return str(last_drawn_round + 1)
 
     def _makeAutoNumbers(self, auth_ctrl: auth.AuthController, win720_round: str) -> str:
-        payload = "ROUND={}&SEL_NO=&BUY_CNT=&AUTO_SEL_SET=SA&SEL_CLASS=&BUY_TYPE=A&ACCS_TYPE=01".format(win720_round)
+        payload = "ROUND={}&SEL_NO=&BUY_CNT=1&AUTO_SEL_SET=SA&SEL_CLASS=&BUY_TYPE=A&ACCS_TYPE=01".format(win720_round)
         headers = self._generate_req_headers(auth_ctrl)
         
         data = {

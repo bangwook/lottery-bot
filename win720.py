@@ -50,7 +50,7 @@ class Win720:
     ) -> dict:
         assert type(auth_ctrl) == auth.AuthController
 
-        #notify = notification.Notification()
+        notify = notification.Notification()
 
         
         headers = self._generate_req_headers(auth_ctrl)

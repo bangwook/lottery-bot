@@ -60,35 +60,35 @@ class Win720:
 
         self.keyCode = headers['Cookie'].split("JSESSIONID=")[1]
 
-        #print(f"self.keyCode : {self.keyCode}")
+        print(f"self.keyCode : {self.keyCode}")
         
         win720_round = self._get_round()
 
-        #print(f"win720_round : {win720_round}")
-        #notify._send_discord_webhook("", "win720_round : " + win720_round )
+        print(f"win720_round : {win720_round}")
+        notify._send_discord_webhook("", "win720_round : " + win720_round )
 
         
         makeAutoNum_ret = self._makeAutoNumbers(auth_ctrl, win720_round)
 
-        #print(f"makeAutoNum_ret : {makeAutoNum_ret}")
-        #notify._send_discord_webhook("", "makeAutoNum_ret : " + makeAutoNum_ret )
+        print(f"makeAutoNum_ret : {makeAutoNum_ret}")
+        notify._send_discord_webhook("", "makeAutoNum_ret : " + makeAutoNum_ret )
         
         parsed_ret = self._decText(json.loads(makeAutoNum_ret)['q']) 
 
-        #print(f"parsed_ret : {parsed_ret}")
-        #notify._send_discord_webhook("", "parsed_ret : " + parsed_ret )
+        print(f"parsed_ret : {parsed_ret}")
+        notify._send_discord_webhook("", "parsed_ret : " + parsed_ret )
         
         extracted_num = json.loads(parsed_ret)["selLotNo"]
 
-        #print(f"extracted_num : {extracted_num}")
-        #notify._send_discord_webhook("", "extracted_num : " + extracted_num )
+        print(f"extracted_num : {extracted_num}")
+        notify._send_discord_webhook("", "extracted_num : " + extracted_num )
         
         orderNo, orderDate = self._doOrderRequest(auth_ctrl, win720_round, extracted_num)
 
-        #print(f"orderNo : {orderNo}")
-        #notify._send_discord_webhook("", "orderNo : " + orderNo )
-        #print(f"orderDate : {orderDate}")
-        #notify._send_discord_webhook("", "orderDate : " + orderDate )
+        print(f"orderNo : {orderNo}")
+        notify._send_discord_webhook("", "orderNo : " + orderNo )
+        print(f"orderDate : {orderDate}")
+        notify._send_discord_webhook("", "orderDate : " + orderDate )
         
         body = json.loads(self._doConnPro(auth_ctrl, user_id, win720_round, extracted_num, orderNo, orderDate))
 

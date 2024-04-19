@@ -22,7 +22,8 @@ jobs:
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
-          COUNT: ${{ secrets.COUNT }}
+          COUNT_WIN: ${{ secrets.COUNT_WIN }}
+          COUNT_LOTTO: ${{ secrets.COUNT_LOTTO }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           DISCORD_WEBHOOK_URL:  ${{ secrets.DISCORD_WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN_FOR_LOTTERY: ${{ secrets.TELEGRAM_BOT_TOKEN_FOR_LOTTERY }}

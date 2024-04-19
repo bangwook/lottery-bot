@@ -69,8 +69,8 @@ def buy():
 
     username = os.environ.get('USERNAME')
     password = os.environ.get('PASSWORD')
-    count_645 = int(os.environ.get('COUNT_645'))
-    count_720 = int(os.environ.get('COUNT_720'))
+    count_lotto = int(os.environ.get('COUNT_LOTTO'))
+    count_win = int(os.environ.get('COUNT_WIN'))
     slack_webhook_url = os.environ.get('SLACK_WEBHOOK_URL') 
     discord_webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN_FOR_LOTTERY')
@@ -81,10 +81,10 @@ def buy():
     globalAuthCtrl = auth.AuthController()
     globalAuthCtrl.login(username, password)
 
-    response = buy_lotto645(globalAuthCtrl, count_645, mode) 
+    response = buy_lotto645(globalAuthCtrl, count_lotto, mode) 
     send_message(1, 0, response=response, webhook_url=discord_webhook_url)
 
-    response = buy_win720(globalAuthCtrl, username, count_720) 
+    response = buy_win720(globalAuthCtrl, username, count_win) 
     send_message(1, 1, response=response, webhook_url=discord_webhook_url)
 
 def buy_win720_only():
@@ -92,7 +92,7 @@ def buy_win720_only():
 
     username = os.environ.get('USERNAME')
     password = os.environ.get('PASSWORD')
-    count_720 = int(os.environ.get('COUNT_720'))
+    count_win = int(os.environ.get('COUNT_WIN'))
     slack_webhook_url = os.environ.get('SLACK_WEBHOOK_URL') 
     discord_webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN_FOR_LOTTERY')
@@ -103,7 +103,7 @@ def buy_win720_only():
     globalAuthCtrl = auth.AuthController()
     globalAuthCtrl.login(username, password)
 
-    response = buy_win720(globalAuthCtrl, username, count_720) 
+    response = buy_win720(globalAuthCtrl, username, count_win) 
     send_message(1, 1, response=response, webhook_url=discord_webhook_url)
     
 def run():

@@ -146,9 +146,9 @@ class Win720:
         payload = "ROUND={}&FLAG=&BUY_KIND=01&BUY_NO={}&BUY_CNT=1&BUY_SET_TYPE=SA%2CSA%2CSA%2CSA%2CSA&BUY_TYPE=A%2CA%2CA%2CA%2CA%2C&CS_TYPE=01&orderNo={}&orderDate={}&TRANSACTION_ID=&WIN_DATE=&USER_ID={}&PAY_TYPE=&resultErrorCode=&resultErrorMsg=&resultOrderNo=&WORKING_FLAG=true&NUM_CHANGE_TYPE=&auto_process=N&set_type=SA&classnum=&selnum=&buytype=M&num1=&num2=&num3=&num4=&num5=&num6=&DSEC=34&CLOSE_DATE=&verifyYN=N&curdeposit=&curpay=5000&DROUND={}&DSEC=0&CLOSE_DATE=&verifyYN=N&lotto720_radio_group=on".format(win720_round,"".join([ "{}{}%2C".format(i,extracted_num) for i in range(1,6)])[:-3],orderNo, orderDate, user_id, win720_round)
         headers = self._generate_req_headers(auth_ctrl)
 
-        #notify = notification.Notification()
-        #print(f"payload : {payload}")
-        #notify._send_discord_webhook("", "payload : " + payload )
+        notify = notification.Notification()
+        print(f"payload : {payload}")
+        notify._send_discord_webhook("", "payload : " + payload )
         
         data = {
             "q": requests.utils.quote(self._encText(payload))

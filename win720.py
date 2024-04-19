@@ -58,7 +58,9 @@ class Win720:
         headers = self._generate_req_headers(auth_ctrl)
 
         print(f"buy_count : {buy_count}")
-
+        self.notify._send_discord_webhook("", "buy_count : " + buy_count)
+        return null;
+        
         self.keyCode = headers['Cookie'].split("JSESSIONID=")[1]
 
         print(f"self.keyCode : {self.keyCode}")

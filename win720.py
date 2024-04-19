@@ -170,7 +170,7 @@ class Win720:
                 orderNo, 
                 orderDate, 
                 user_id, 
-                self.iterationCount*100,                                                                                                                                                                                                                                                                                                                                                                             
+                self.iterationCount*buy_count,                                                                                                                                                                                                                                                                                                                                                                             
                 win720_round)
         headers = self._generate_req_headers(auth_ctrl)
 

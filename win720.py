@@ -74,13 +74,13 @@ class Win720:
         
         makeAutoNum_ret = self._makeAutoNumbers(auth_ctrl, win720_round, buy_count)
 
-        print(f"makeAutoNum_ret : {makeAutoNum_ret}")
-        self.notify._send_discord_webhook("", "makeAutoNum_ret : " + makeAutoNum_ret )
+        #print(f"makeAutoNum_ret : {makeAutoNum_ret}")
+        #self.notify._send_discord_webhook("", "makeAutoNum_ret : " + makeAutoNum_ret )
         
         parsed_ret = self._decText(json.loads(makeAutoNum_ret)['q']) 
 
-        print(f"parsed_ret : {parsed_ret}")
-        self.notify._send_discord_webhook("", "parsed_ret : " + parsed_ret )
+        #print(f"parsed_ret : {parsed_ret}")
+        #self.notify._send_discord_webhook("", "parsed_ret : " + parsed_ret )
         
         extracted_num = json.loads(parsed_ret)["selLotNo"]
 
@@ -175,8 +175,8 @@ class Win720:
         headers = self._generate_req_headers(auth_ctrl)
 
         #notify = notification.Notification()
-        print(f"payload : {payload}")
-        self.notify._send_discord_webhook("", "payload : " + payload )
+        #print(f"payload : {payload}")
+        #self.notify._send_discord_webhook("", "payload : " + payload )
         
         data = {
             "q": requests.utils.quote(self._encText(payload))

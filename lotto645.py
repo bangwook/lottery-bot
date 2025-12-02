@@ -96,36 +96,46 @@ class Lotto645:
 
         raise NotImplementedError()
 
-    def _getRequirements(self, headers: dict) -> list: 
-        org_headers = headers
-
-        headers["Referer"] ="https://ol.dhlottery.co.kr/olotto/game/game645.do"
-        headers["Content-Type"] = "application/json; charset=UTF-8"
-        headers["X-Requested-With"] ="XMLHttpRequest"
-
-	#no param needed at now
-        res = requests.post( 
-            url="https://ol.dhlottery.co.kr/olotto/game/egovUserReadySocket.json", 
-            headers=headers
-        )
-        
-        direct = json.loads(res.text)["ready_ip"]
-        
-
-        res = requests.post( 
-            url="https://ol.dhlottery.co.kr/olotto/game/game645.do", 
-            headers=org_headers
-        )
-        
-        html = res.text
-        soup = BS(
-            html, "html5lib"
-        )
-        
-        draw_date = soup.find("input", id="ROUND_DRAW_DATE").get('value')
-        tlmt_date = soup.find("input", id="WAMT_PAY_TLMT_END_DT").get('value')
-
-        return [direct, draw_date, tlmt_date]
+    def _getRequirements(self, headers: dict) -> list:
+	    import json
+	    import requests
+	    from bs4 import BeautifulSoup as BS
+	
+	    org_headers = headers.copy()  # 혹시 헤더가 변해서 복사본 사용
+	
+	    headers["Referer"] = "https://ol.dhlottery.co.kr/olotto/game/game645.do"
+	    headers["Content-Type"] = "application/json; charset=UTF-8"
+	    headers["X-Requested-With"] = "XMLHttpRequest"
+	
+	    # no param needed at now
+	    res = requests.post(
+	        url="https://ol.dhlottery.co.kr/olotto/game/egovUserReadySocket.json",
+	        headers=headers
+	    )
+	    direct = json.loads(res.text).get("ready_ip", None)
+	
+	    res = requests.post(
+	        url="https://ol.dhlottery.co.kr/olotto/game/game645.do",
+	        headers=org_headers
+	    )
+	    html = res.text
+	    soup = BS(html, "html5lib")
+	
+	    draw_input = soup.find("input", id="ROUND_DRAW_DATE")
+	    if draw_input is None:
+	        print("ERROR: ROUND_DRAW_DATE input element not found in response html.")
+	        print("Partial HTML:", soup.prettify()[:800])  # 앞부분까지만 출력
+	        raise Exception("ROUND_DRAW_DATE input element not found in lotto645 buy page.")
+	    draw_date = draw_input.get('value')
+	
+	    tlmt_input = soup.find("input", id="WAMT_PAY_TLMT_END_DT")
+	    if tlmt_input is None:
+	        print("ERROR: WAMT_PAY_TLMT_END_DT input element not found in response html.")
+	        print("Partial HTML:", soup.prettify()[:800])
+	        raise Exception("WAMT_PAY_TLMT_END_DT input element not found in lotto645 buy page.")
+	    tlmt_date = tlmt_input.get('value')
+	
+	    return [direct, draw_date, tlmt_date]
 
     def _get_round(self) -> str:
         res = requests.get("https://www.dhlottery.co.kr/common.do?method=main")
